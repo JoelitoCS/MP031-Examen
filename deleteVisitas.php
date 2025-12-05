@@ -5,8 +5,8 @@
     if ($_SESSION['user_rol'] !== 'admin') exit("Sense permisos");
 
     $id = (int) $_GET['id'];
-    $stmt = $mysqli->prepare("DELETE FROM animales WHERE id = ?");
+    $stmt = $mysqli->prepare("DELETE FROM visitas WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    header("Location: adminAnimales.php");
+    header("Location: adminVisites.php");
 exit;

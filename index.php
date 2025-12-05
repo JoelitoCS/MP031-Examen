@@ -84,7 +84,7 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
                 <td><?= $v['diagnostico'] ?></td>
                 <td><?= $v['tratamiento'] ?></td>
                 <?php if ($_SESSION['user_rol']=='veterinario' || 'admin'): ?>
-                <td><a href="editVisitas.php">Editar</a></td>
+                <td><a href="editVisitas.php?id=">Editar</a></td>
                 <?php endif; ?>
             </tr>
             <?php endforeach; ?>

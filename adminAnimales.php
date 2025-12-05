@@ -109,7 +109,7 @@ $animales = $result->fetch_all(MYSQLI_ASSOC);
     }
 </style>
 <h1>Animales</h1>
-<a class="add-btn" href="addNew.php">+ Añadir Animales</a>
+<a class="add-btn" href="addAnimales.php">+ Añadir Animales</a>
 <div class="table-container">
     <table>
         <tr>
