@@ -4,14 +4,13 @@ require 'config.php';
 if ($_SESSION['user_rol'] !== 'admin') exit("Sin permisos");
 $id = (int) $_GET['id'];
 $result = $mysqli->query("SELECT * FROM visitas WHERE id = $id");
-$animal = $result->fetch_assoc();
+$visita = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha = $_POST['fecha'];
     $diagnostico = $_POST['diagnostico'];
     $tratamiento = $_POST['tratamiento'];
     $fechaCreacion = $_POST['created_at'];
-
 
     $stmt = $mysqli->prepare(
         "UPDATE visitas SET fecha=?, diagnostico=?, tratamiento=?, created_at=? WHERE id=?"
@@ -140,16 +139,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="login-container">
     <form method="POST">
         <label>Fecha:</label><br>
-        <input type="text" name="fecha" value="<?= $animal['fecha'] ?>" required><br><br>
+        <input type="text" name="fecha" value="<?= $visita['fecha'] ?>" required><br><br>
 
         <label>Diagnostico:</label><br>
-        <input type="text" name="diagnostico" value="<?= $animal['diagnostico'] ?>"><br><br>
+        <input type="text" name="diagnostico" value="<?= $visita['diagnostico'] ?>"><br><br>
 
         <label>Tratamiento:</label><br>
-        <textarea name="tratamiento" value="<?= $animal['tratamiento'] ?>" required></textarea><br><br>
+        <textarea name="tratamiento" value="<?= $visita['tratamiento'] ?>" required></textarea><br><br>
 
         <label>Fecha de la edición:</label><br>
-        <input type="text" name="created_at" value="<?= $animal['created_at'] ?>"><br><br>
+        <input type="text" name="created_at" value="<?= $visita['created_at'] ?>"><br><br>
 
         <input type="submit" value="Guardar Cambios">
     </form>
