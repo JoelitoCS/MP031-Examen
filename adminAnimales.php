@@ -6,107 +6,119 @@ $result = $mysqli->query("SELECT * FROM animales");
 $animales = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 <style>
-    body {
-        background: linear-gradient(135deg, #232526 0%, #414345 100%);
-        min-height: 100vh;
-        margin: 0;
-        font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-        color: #fff;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: linear-gradient(135deg,#eaf6f5 0%,#d8eef8 100%); color: #123; }
 
-    h1 {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 2.2rem;
-        color: #38ef7d;
-        letter-spacing: 1px;
-        font-weight: 700;
-    }
+/* Mantengo la disposición original pero con card clara */
+.table-container {
+  max-width: 1100px;
+  margin: 28px auto 60px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 28px rgba(16,36,42,0.06);
+  border: 1px solid rgba(16,36,42,0.04);
+  overflow-x: auto;
+}
 
-    .add-btn {
-        display: block;
-        width: 220px;
-        margin: 30px auto 40px auto;
-        padding: 14px 0;
-        background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(56, 239, 125, 0.15);
-        transition: background 0.2s, transform 0.2s;
-    }
+/* Título */
+h1 {
+  text-align: center;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  font-size: 2rem;
+  color: #0b5560; /* verde/azulado más serio */
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
 
-    .add-btn:hover {
-        background: linear-gradient(90deg, #38ef7d 0%, #11998e 100%);
-        color: #232526;
-        transform: translateY(-2px) scale(1.03);
-    }
+/* Botón "añadir" */
+.add-btn {
+  display: block;
+  width: 220px;
+  margin: 18px auto 26px;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #0b5560 0%, #2b8f95 100%);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(43,143,149,0.12);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.add-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(43,143,149,0.16);
+}
 
-    .table-container {
-        max-width: 1100px;
-        margin: 0 auto 60px auto;
-        background: rgba(34, 40, 49, 0.97);
-        border-radius: 16px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-        padding: 36px 28px;
-        overflow-x: auto;
-    }
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #233a39;
+  font-size: 0.98rem;
+  table-layout: auto;
+  min-width: 720px;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: transparent;
-        color: #fff;
-        font-size: 1rem;
-        table-layout: fixed;
-    }
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #eef6f6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    th,
-    td {
-        padding: 12px 10px;
-        border-bottom: 1px solid #414345;
-        text-align: left;
-        vertical-align: top;
-        word-break: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+/* Cabeceras */
+th {
+  background: linear-gradient(180deg,#f3faf9,#e9f6f6);
+  color: #0b5560;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 
-    th {
-        background: #232526;
-        color: #38ef7d;
-        font-weight: 700;
-    }
+/* Filas */
+tr:hover {
+  background: rgba(43,143,149,0.05);
+}
 
-    tr:hover {
-        background: rgba(56, 239, 125, 0.07);
-    }
+/* Anchos respetando tus clases */
+td.cuerpo { max-width: 220px; }
+td.imagen { max-width: 180px; }
+td.subtitulo { max-width: 140px; }
 
-    td.cuerpo {
-        max-width: 220px;
-    }
-    td.imagen {
-        max-width: 180px;
-    }
-    td.subtitulo {
-        max-width: 140px;
-    }
+/* Enlaces / acciones con acento coral verde-azulado */
+a {
+  color: #1f6f6b;
+  text-decoration: none;
+  font-weight: 600;
+}
+a:hover {
+  color: #0b4b47;
+  text-decoration: underline;
+}
 
-    a {
-        color: #38ef7d;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.2s;
-    }
+/* Texto secundario */
+.muted { color: #6b7b7a; font-size: 0.95rem; }
 
-    a:hover {
-        color: #11998e;
-        text-decoration: underline;
-    }
+/* Responsiveness */
+@media (max-width: 900px) {
+  .table-container { padding: 18px; }
+  table { min-width: 600px; font-size: 0.95rem; }
+  .add-btn { width: 180px; }
+}
+@media (max-width: 640px) {
+  body { padding: 12px; }
+  h1 { font-size: 1.4rem; margin-top: 18px; }
+  .table-container { margin: 12px; padding: 12px; }
+  table { min-width: 520px; }
+}
 </style>
 <h1>Animales</h1>
 <a class="add-btn" href="addAnimales.php">+ Añadir Animales</a>
