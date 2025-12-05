@@ -38,7 +38,7 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <?php if ($_SESSION['user_rol']=='admin'): ?>
-            <li class="nav-item"><a class="nav-link" href="admin_panel.php">Panel Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="adminPanel.php">Panel Admin</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="vet_panel.php">Panel Veterinari</a></li>
         <li class="nav-item"><a class="nav-link" href="login.php">Iniciar Sesión</a></li>
@@ -68,15 +68,17 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
                 <th>Fecha</th>
                 <th>Diagnóstico</th>
                 <th>Tratamiento</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($visitas as $v): ?>
             <tr>
-                <?php if ($_SESSION['user_rol']=='admin'): ?>
                 <td><?= $v['fecha'] ?></td>
                 <td><?= $v['diagnostico'] ?></td>
                 <td><?= $v['tratamiento'] ?></td>
+                <?php if ($_SESSION['user_rol']=='admin'): ?>
+                <td></td>
                 <?php endif; ?>
             </tr>
             <?php endforeach; ?>

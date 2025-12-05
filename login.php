@@ -6,31 +6,22 @@ require_once 'config.php';
 $mensajeError = ""; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Comprueba si el formulario se ha enviado usando el método POST
 
     $email = trim($_POST['email']);
-    // Obtiene el email ingresado y elimina espacios en blanco al inicio y final
-
     $password = $_POST['password'];
-    // Obtiene la contraseña ingresada
+   
 
-    $stmt = $mysqli->prepare("SELECT id, nom, email, password, rol FROM usuarios WHERE email = ?");
-    // Prepara una consulta segura para buscar un usuario por email
-
+    $stmt = $mysqli->prepare("SELECT id, nombre, email, password, rol FROM usuarios WHERE email = ?");
+    
     $stmt->bind_param("s", $email);
-    // Asigna el email como parámetro a la consulta preparada (tipo string "s")
 
     $stmt->execute();
-    // Ejecuta la consulta
 
     $result = $stmt->get_result();
-    // Obtiene el resultado de la consulta como un objeto de resultado
 
     if ($result->num_rows === 1){
-        // Si se encontró exactamente un usuario con ese email
 
         $user = $result->fetch_assoc();
-        // Extrae los datos del usuario como un array asociativo
 
         if (password_verify($password, $user['password']) || $password === $user['password']){
 
@@ -95,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login de Usuario</title>
 <style>
-/* RESET de estilos */
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
 body {
