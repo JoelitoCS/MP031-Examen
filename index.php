@@ -3,6 +3,12 @@ session_start();
 
 require 'config.php'; // incluimos la conexión
 
+if(!isset($_SESSION['user_id'])){
+    // Si el usuario no ha iniciado sesión, redirigir al panel correspondiente
+    header("Location: login.php");
+    exit();
+}
+
 
 $stmt = $mysqli->query("SELECT * FROM visitas");
 
@@ -40,7 +46,7 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
         <?php if ($_SESSION['user_rol']=='admin'): ?>
             <li class="nav-item"><a class="nav-link" href="adminPanel.php">Panel Admin</a></li>
         <?php endif; ?>
-        <li class="nav-item"><a class="nav-link" href="vet_panel.php">Panel Veterinari</a></li>
+        <li class="nav-item"><a class="nav-link" href="veterinarioPanel.php">Panel Veterinari</a></li>
         <li class="nav-item"><a class="nav-link" href="login.php">Iniciar Sesión</a></li>
         <li class="nav-item"><a class="nav-link" href="register.php">Registrate</a></li>
         <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar Sesión</a></li>
@@ -77,8 +83,8 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
                 <td><?= $v['fecha'] ?></td>
                 <td><?= $v['diagnostico'] ?></td>
                 <td><?= $v['tratamiento'] ?></td>
-                <?php if ($_SESSION['user_rol']=='admin'): ?>
-                <td></td>
+                <?php if ($_SESSION['user_rol']=='veterinario' || 'admin'): ?>
+                <td><a href="editVisitas.php">Editar</a></td>
                 <?php endif; ?>
             </tr>
             <?php endforeach; ?>

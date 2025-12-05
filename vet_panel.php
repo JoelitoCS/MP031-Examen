@@ -1,44 +1,28 @@
 <?php
 session_start();
-require_once 'config.php';
+require 'config.php';
+if ($_SESSION['user_rol'] !== 'admin') exit("Sin permisos");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$id = (int) $_SESSION['user_id'];
+$result = $mysqli->query("SELECT * FROM usuarios WHERE id = $id");
+$user = $result->fetch_assoc();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['nombre'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $rol = 'veterinario';
-    
-    $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
-    
-    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, 'veterinario')");
 
-    if (!$stmt) {
-        die("Error en la preparación de la consulta: " . $mysqli->error);
-    }
-    
-    $stmt->bind_param("sss", $nom, $email, $password_hasheada);
-    
-    if ($stmt->execute()) {
-        echo "Registro exitoso. Ahora puedes <a href='login.php'>iniciar sesión</a>.";
-    } else {
-        echo "Error en el registro: " . $stmt->error;
-    }
-    //7. Cerramos la declaración (conexion)
-    $stmt->close();
-    $mysqli->close();
+    $stmt = $mysqli->prepare(
+        "UPDATE usuarios SET nombre=?, email=?, password=? WHERE id=?"
+    );
+    $stmt->bind_param("sssi", $nom, $email, $password, $id);
+    $stmt->execute();
+    header("Location: veterinarioPanel.php");
+    exit;
 }
-
 ?>
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
-    <style>
-        * {
+<style>
+    * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -151,29 +135,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 transform: translateY(0);
             }
         }
-    </style>
-</head>
+</style>
+<div class="login-container">
+    <form method="POST">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre" value="<?= $user['nombre'] ?>" required><br><br>
 
-<body>
-    <div class="login-container">
-        <h2>Registro de Usuario</h2>
-        <!-- CREO EL FORMULARIO PARA NOM EMAIL PASSWORD -->
-        <form method="POST" action="register.php">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required><br><br>
+        <label>Email:</label><br>
+        <input type="text" name="email" value="<?= $user['email'] ?>"><br><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
+        <label>Contraseña:</label><br>
+        <textarea name="password" value="<?= $user['password'] ?>" required></textarea><br><br>
 
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required><br><br>
-
-            <input type="submit" value="Registrar">
-
-            <p>Ya tienes cuenta?<a href="login.php">Inicia Sesión</a></p>
-        </form>
-    </div>
-
-</body>
-
-</html>
+        <input type="submit" value="Guardar Cambios">
+    </form>
+</div>

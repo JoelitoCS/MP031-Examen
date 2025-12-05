@@ -46,13 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             $_SESSION['user_id'] = $user['id'];
-            // Guarda el id del usuario en la sesión
-
+            
             $_SESSION['user_name'] = $user['nombre'];
-            // Guarda el nombre del usuario en la sesión
-
+           
             $_SESSION['user_email'] = $user['email'];
-            // Guarda el email del usuario en la sesión
 
             $_SESSION['user_rol'] = $user['rol'];
             // Guarda el rol del usuario en la sesión (user/admin)
@@ -195,12 +192,13 @@ form input[type="submit"]:active {
     <h2>Login de Usuario</h2>
 
     <!-- Muestra el mensaje de error si $error no está vacío -->
-    <?php if(!empty($error)) { echo '<div class="error-message">'.$error.'</div>'; } ?>
+    <?php if(!empty($mensajeError)) { echo '<div class="error-message">'.$mensajeError.'</div>'; } ?>
 
     <form method="POST" action="login.php">
         <input type="email" id="email" name="email" placeholder="Email" required>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
         <input type="submit" value="Iniciar Sesión">
+        <p>¿No tienes cuenta?<a href="register.php">Regístrate</a></p>
     </form>
 </div>
 </body>
