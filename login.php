@@ -96,60 +96,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <title>Login de Usuario</title>
 <style>
 /* RESET de estilos */
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
 }
-/* Crea un fondo animado de gradiente que cambia de posición continuamente */
-
-@keyframes gradientBG {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
-}
-/* Animación que mueve el gradiente de fondo de izquierda a derecha */
 
 .login-container {
-    width: 350px;
+    width: 400px;
     max-width: 90%;
-    padding: 40px 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-    color: #fff;
+    padding: 50px 40px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    color: #1a1a1a;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-/* Card central del login con fondo semi-transparente, blur y sombra */
 
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     font-size: 2rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    color: #1e3c72;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
-/* Título del login con sombra para destacar */
 
 .error-message {
     width: 100%;
     text-align: center;
-    background: rgba(255,0,0,0.3);
-    color: #fff;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #dc2626;
     animation: fadeIn 0.5s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
-/* Mensaje de error dentro del card con animación fadeIn */
 
 form {
     width: 100%;
@@ -157,43 +148,49 @@ form {
     flex-direction: column;
     align-items: center;
 }
-/* Estilo del formulario: columnas centradas */
 
 form input {
     width: 100%;
-    padding: 15px 20px;
+    padding: 14px 16px;
     margin: 10px 0;
-    border-radius: 50px;
-    border: none;
+    border-radius: 8px;
+    border: 1.5px solid #e5e7eb;
     outline: none;
-    background: rgba(255,255,255,0.2);
-    color: #fff;
-    font-size: 1rem;
+    background: #f9fafb;
+    color: #1a1a1a;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
 }
-/* Inputs del formulario con fondo semitransparente y bordes redondeados */
 
-form input::placeholder { color: rgba(255,255,255,0.7); }
-/* Color del placeholder */
+form input::placeholder { 
+    color: #9ca3af;
+    font-weight: 500;
+}
 
 form input:focus {
-    background: rgba(255,255,255,0.3);
-    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    background: #ffffff;
+    border-color: #2a5298;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
 }
-/* Estilo al enfocar el input */
 
 form input[type="submit"] {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    font-weight: bold;
-    letter-spacing: 1px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.4s ease;
+    border: none;
+    margin-top: 10px;
+    transition: all 0.3s ease;
 }
-/* Botón de submit con gradiente y efecto hover */
 
 form input[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(255,75,43,0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(30, 60, 114, 0.3);
+}
+
+form input[type="submit"]:active {
+    transform: translateY(0);
 }
 
 @keyframes fadeIn {

@@ -37,18 +37,25 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <?php if ($_SESSION['rol']=='admin'): ?>
+        <?php if ($_SESSION['user_rol']=='admin'): ?>
             <li class="nav-item"><a class="nav-link" href="admin_panel.php">Panel Admin</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="vet_panel.php">Panel Veterinari</a></li>
-        <li class="nav-item"><a class="nav-link" href="logout.php">Iniciar Sesión</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.php">Iniciar Sesión</a></li>
+        <li class="nav-item"><a class="nav-link" href="register.php">Registrate</a></li>
         <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar Sesión</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
+
+
 <div class="container">
+    <h1>¡Bienvenido a HappyPets!</h1>
+    <h2>
+        Aqui podrás ver las visitas.
+    </h2>
     <h1 class="mb-4">Visitas</h1>
 
     <?php if(empty($visitas)): ?>
@@ -59,25 +66,17 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
         <thead>
             <tr>
                 <th>Fecha</th>
-                <th>Animal</th>
-                <th>Propietario</th>
                 <th>Diagnóstico</th>
                 <th>Tratamiento</th>
-                <?php if ($_SESSION['rol']=='admin'): ?>
-                <th>Veterinario</th>
-                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
             <?php foreach($visitas as $v): ?>
             <tr>
-                <td><?= htmlspecialchars($v['fecha']) ?></td>
-                <td><?= htmlspecialchars($v['animal_nombre']) ?></td>
-                <td><?= htmlspecialchars($v['propietario_nombre']) ?></td>
-                <td><?= htmlspecialchars($v['diagnostico']) ?></td>
-                <td><?= htmlspecialchars($v['tratamiento']) ?></td>
-                <?php if ($_SESSION['rol']=='admin'): ?>
-                <td><?= htmlspecialchars($v['vet_nombre'].' '.$v['vet_apellidos']) ?></td>
+                <?php if ($_SESSION['user_rol']=='admin'): ?>
+                <td><?= $v['fecha'] ?></td>
+                <td><?= $v['diagnostico'] ?></td>
+                <td><?= $v['tratamiento'] ?></td>
                 <?php endif; ?>
             </tr>
             <?php endforeach; ?>
