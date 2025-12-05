@@ -41,6 +41,7 @@ $visitas = $stmt->fetch_all(MYSQLI_ASSOC); // obtenemos todos los resultados
             <li class="nav-item"><a class="nav-link" href="admin_panel.php">Panel Admin</a></li>
         <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="vet_panel.php">Panel Veterinari</a></li>
+        <li class="nav-item"><a class="nav-link" href="logout.php">Iniciar Sesión</a></li>
         <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar Sesión</a></li>
       </ul>
     </div>
